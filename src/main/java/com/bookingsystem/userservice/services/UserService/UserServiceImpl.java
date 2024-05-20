@@ -59,6 +59,8 @@ public class UserServiceImpl implements IUserService {
                 .password(passwordEncoder.encode(userDto.getPassword()))
                 .address(userDto.getAddress())
                 .role(Role.CUSTOMER)
+                .telephone(userDto.getTelephone())
+                .createdAt(Instant.now())
                 .enabled(true)
                 .build();
         User userCreated = userRepository.save(user);

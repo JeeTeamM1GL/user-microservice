@@ -17,8 +17,14 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
   cloud:
     discovery:
-      enabled: false
+      enabled: true
     config:
       enabled: false
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    service-url:
+#      defaultZone: http://locahost:8761/eureka
 server:
   port: 8081
