@@ -37,20 +37,9 @@ public class UserServiceImpl implements IUserService {
         }else {
             System.out.println("Le super admin existe déjà");
         }
-
     }
 
     public Boolean registerCustomerAccount(UserDto userDto) {
-//        User user = new User();
-//        user.setId(IDGenerate.generate("USR"));
-//        user.setFirstName(userDto.getFirstName());
-//        user.setLastName(userDto.getLastName());
-//        user.setEmail(userDto.getEmail());
-//        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-//        user.setAddress(userDto.getAddress());
-//        user.setRole(Role.CUSTOMER);
-//        user.setEnabled(true);
-
         User user = User.builder()
                 .id(IDGenerate.generate("USR"))
                 .firstName(userDto.getFirstName())
@@ -73,5 +62,27 @@ public class UserServiceImpl implements IUserService {
 
     public Optional<User> findUserById(String id) {
         return userRepository.findById(id);
+    }
+
+    public User updateUser(String id, UserDto userDto) {
+        return userRepository.findById(id).map(user -> {
+            user.setFirstName(userDto.getFirstName());
+            user.setLastName(userDto.getLastName());
+            user.setEmail(userDto.getEmail());
+            user.setTelephone(userDto.getTelephone());
+            user.setAddress(userDto.getAddress());
+            user.setUpdatedAt(Instant.now());
+            return userRepository.save(user);
+        }).orElse(null);
+    }
+
+    public Boolean deleteUser(String id) {
+        try {
+            userRepository.deleteById(id);
+            return true;
+        }
+        catch (Exception e) {
+            return false;
+        }
     }
 }

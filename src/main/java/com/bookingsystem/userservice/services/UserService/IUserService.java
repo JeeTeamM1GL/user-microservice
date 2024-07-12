@@ -11,4 +11,6 @@ public interface IUserService {
     List<User> findAll();
     Optional<User> findUserById(String id);
     void createSuperAdmin();
+    User updateUser(String id, UserDto userDto);
+    Boolean deleteUser(String id);
 }

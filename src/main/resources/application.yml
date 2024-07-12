@@ -1,9 +1,6 @@
 spring:
   application:
     name: user-service
-  #config:
-  #  import: optional:configserver:http://localhost:8089
-#spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/booking_db_users
@@ -23,6 +20,17 @@ spring:
       enabled: true
     config:
       enabled: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8080/realms/booking-realm
+jwt:
+  auth:
+    converter:
+      resource-id: booking-client
+      principle-attribute: preferred_username
 eureka:
   instance:
     prefer-ip-address: true
@@ -35,5 +43,8 @@ eureka:
 #      exposure:
 #        include: *
 
+roles:
+  admin: admin
+  user: user
 server:
   port: 8081
