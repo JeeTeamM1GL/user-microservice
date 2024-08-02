@@ -4,7 +4,6 @@ import com.bookingsystem.userservice.entities.User;
 import com.bookingsystem.userservice.services.UserService.IUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +17,6 @@ public class UserController {
     private IUserService userService;
 
     @GetMapping
-    @PreAuthorize("hasRole('admin')")
     public ResponseEntity< List<User>> getAllUsers() {
         return ResponseEntity.ok(userService.findAll());
     }
